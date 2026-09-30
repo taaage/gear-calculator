@@ -1,4 +1,5 @@
 export type Unit = "kmh" | "mph";
+export type GearPair = { ring: number; cog: number };
 
 export const RIMS = [
   { bsd: 622, label: "622 mm (700c / 29 in)" },
