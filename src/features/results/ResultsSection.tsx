@@ -5,23 +5,17 @@ type Props = {
   gears: GearPair[];
   cadences: number[];
   circumference: number;
-  cadenceFrom: number;
-  cadenceTo: number;
-  cadenceOverflow: boolean;
 };
 
 export function ResultsSection({
   gears,
   cadences,
   circumference,
-  cadenceFrom,
-  cadenceTo,
-  cadenceOverflow,
 }: Props) {
   const unitLabel = "km/h";
   const cadenceLabel = cadences.length
     ? `${cadences[0]}–${cadences[cadences.length - 1]}`
-    : `${cadenceFrom}–${cadenceTo}`;
+    : "your selected range";
 
   return (
     <section className="results" aria-live="polite">
@@ -33,12 +27,7 @@ export function ResultsSection({
         <span className="unit-note">Speed in {unitLabel}</span>
       </div>
 
-      {cadenceOverflow ? (
-        <p className="empty-state">
-          This range creates more than 40 cadence columns. Narrow the RPM range
-          or increase the interval.
-        </p>
-      ) : gears.length === 0 || cadences.length === 0 ? (
+      {gears.length === 0 || cadences.length === 0 ? (
         <p className="empty-state">
           Enter valid gear teeth and a cadence range to see your speeds.
         </p>

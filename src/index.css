@@ -317,7 +317,7 @@ select {
 
 .speed-table {
   width: 100%;
-  min-width: 580px;
+  min-width: 320px;
   border-collapse: collapse;
   color: var(--color-text-bright);
   font-variant-numeric: tabular-nums;
@@ -352,17 +352,22 @@ select {
   border-right: 0;
 }
 
-.speed-table .gear-column {
-  width: 112px;
+.speed-table .cadence-column {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  width: 90px;
+  min-width: 90px;
+  background: var(--color-surface-input);
   text-align: left;
 }
 
-.speed-table .gear-column span {
-  display: block;
+.speed-table thead .cadence-column {
+  z-index: 2;
+  background: #10201d;
 }
 
-.speed-table .gear-name {
-  background: var(--color-surface-input);
+.speed-table .cadence-column {
   color: var(--color-text);
   font-size: 13px;
   font-weight: 600;

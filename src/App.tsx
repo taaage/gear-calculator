@@ -9,7 +9,6 @@ export default function App() {
     circumference,
     gears,
     cadences,
-    cadenceOverflow,
   } = useGearCalculator();
 
   return (
@@ -27,9 +26,6 @@ export default function App() {
         gears={gears}
         cadences={cadences}
         circumference={circumference}
-        cadenceFrom={settings.cadFrom}
-        cadenceTo={settings.cadTo}
-        cadenceOverflow={cadenceOverflow}
       />
     </main>
   );

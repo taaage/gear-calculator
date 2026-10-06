@@ -12,26 +12,26 @@ export function SpeedTable({ gears, cadences, circumference }: Props) {
       <table className="speed-table" aria-label="Gear speeds in km/h">
         <thead>
           <tr className="text-text-secondary">
-            <th className="gear-column" scope="col">
-              <span>Gear</span>
+            <th className="cadence-column" scope="col">
+              Cadence
             </th>
-            {cadences.map((cadence) => (
-              <th key={cadence} scope="col">
-                {cadence}
+            {gears.map(({ ring, cog }) => (
+              <th key={`${ring}x${cog}`} scope="col">
+                {ring}×{cog}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {gears.map(({ ring, cog }) => (
-            <tr key={`${ring}x${cog}`}>
-              <th scope="row" className="gear-column gear-name">
-                <span>{ring}×{cog}</span>
+          {cadences.map((cadence) => (
+            <tr key={cadence}>
+              <th scope="row" className="cadence-column">
+                {cadence} rpm
               </th>
-              {cadences.map((cadence) => {
+              {gears.map(({ ring, cog }) => {
                 const kmh = speedKmh(ring, cog, cadence, circumference);
                 return (
-                  <td key={cadence} className={speedColor(kmh)}>
+                  <td key={`${ring}x${cog}`} className={speedColor(kmh)}>
                     {kmh.toFixed(1)}
                   </td>
                 );

@@ -1,8 +1,6 @@
 import { useMemo, useState } from "react";
 import {
-  cadenceColumnCount,
   cadenceSteps,
-  MAX_CADENCE_COLUMNS,
   parseTeeth,
   wheelCircumferenceM,
   type GearPair,
@@ -47,9 +45,6 @@ export function useGearCalculator() {
     () => cadenceSteps(settings.cadFrom, settings.cadTo, settings.cadBy),
     [settings.cadFrom, settings.cadTo, settings.cadBy],
   );
-  const cadenceOverflow =
-    cadenceColumnCount(settings.cadFrom, settings.cadTo, settings.cadBy) >
-    MAX_CADENCE_COLUMNS;
   const circumference = wheelCircumferenceM(settings.bsd, settings.tire);
   const gears: GearPair[] = rings.flatMap((ring) =>
     cogs.map((cog) => ({ ring, cog })),
@@ -61,6 +56,5 @@ export function useGearCalculator() {
     circumference,
     gears,
     cadences,
-    cadenceOverflow,
   };
 }
