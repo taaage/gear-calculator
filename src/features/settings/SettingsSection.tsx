@@ -1,4 +1,10 @@
-import { RIMS, TIRE_WIDTHS } from "../../gear";
+import {
+  CADENCE_INTERVALS,
+  MAX_CADENCE_RPM,
+  MIN_CADENCE_RPM,
+  RIMS,
+  TIRE_WIDTHS,
+} from "../../gear";
 import type {
   CalculatorSettings,
   SettingUpdater,
@@ -78,66 +84,67 @@ export function SettingsSection({
           </select>
         </label>
 
-        <fieldset className="setting-row unit-setting">
-          <legend className="setting-label">Units</legend>
-          <div className="unit-switch">
-            <label>
-              <input
-                type="radio"
-                name="unit"
-                checked={settings.unit === "kmh"}
-                onChange={() => onSettingChange("unit", "kmh")}
-              />
-              <span>km/h</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="unit"
-                checked={settings.unit === "mph"}
-                onChange={() => onSettingChange("unit", "mph")}
-              />
-              <span>mph</span>
-            </label>
-          </div>
-        </fieldset>
-
         <div className="setting-row cadence-setting">
           <span className="setting-label">Cadence</span>
-          <div className="cadence-inputs">
-            <input
-              type="number"
-              className={`${gearInput} cadence-input`}
-              value={settings.cadFrom}
-              min={1}
-              aria-label="Starting cadence in rpm"
-              onChange={(event) =>
-                onSettingChange("cadFrom", Number(event.target.value))
-              }
-            />
-            <span className="range-word">to</span>
-            <input
-              type="number"
-              className={`${gearInput} cadence-input`}
-              value={settings.cadTo}
-              min={1}
-              aria-label="Ending cadence in rpm"
-              onChange={(event) =>
-                onSettingChange("cadTo", Number(event.target.value))
-              }
-            />
-            <span className="range-word">by</span>
-            <input
-              type="number"
-              className={`${gearInput} cadence-input cadence-step`}
-              value={settings.cadBy}
-              min={1}
-              aria-label="Cadence increment in rpm"
-              onChange={(event) =>
-                onSettingChange("cadBy", Number(event.target.value))
-              }
-            />
-            <span className="rpm-label">rpm</span>
+          <div className="cadence-controls">
+            <label className="cadence-slider">
+              <span className="cadence-slider-heading">
+                <span>Min RPM</span>
+                <output>{settings.cadFrom}</output>
+              </span>
+              <input
+                type="range"
+                min={MIN_CADENCE_RPM}
+                max={settings.cadTo}
+                step={1}
+                value={settings.cadFrom}
+                aria-label="Minimum cadence in RPM"
+                onChange={(event) =>
+                  onSettingChange("cadFrom", Number(event.target.value))
+                }
+              />
+            </label>
+
+            <label className="cadence-slider">
+              <span className="cadence-slider-heading">
+                <span>Max RPM</span>
+                <output>{settings.cadTo}</output>
+              </span>
+              <input
+                type="range"
+                min={settings.cadFrom}
+                max={MAX_CADENCE_RPM}
+                step={1}
+                value={settings.cadTo}
+                aria-label="Maximum cadence in RPM"
+                onChange={(event) =>
+                  onSettingChange("cadTo", Number(event.target.value))
+                }
+              />
+            </label>
+
+            <fieldset className="cadence-interval">
+              <legend>Interval</legend>
+              <div className="cadence-interval-options">
+                {CADENCE_INTERVALS.map((interval) => (
+                  <label key={interval}>
+                    <input
+                      type="radio"
+                      name="cadence-interval"
+                      checked={settings.cadBy === interval}
+                      onChange={() => onSettingChange("cadBy", interval)}
+                    />
+                    <span>{interval}</span>
+                  </label>
+                ))}
+              </div>
+              <span className="cadence-rpm-unit">rpm</span>
+            </fieldset>
+
+            <p className="cadence-hint">
+              Choose up to 40 cadence values. Narrow the range or increase the
+              interval if it is too wide.
+            </p>
           </div>
         </div>
       </div>

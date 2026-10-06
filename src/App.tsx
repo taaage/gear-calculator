@@ -3,8 +3,14 @@ import { SettingsSection } from "./features/settings/SettingsSection";
 import { useGearCalculator } from "./features/calculator/useGearCalculator";
 
 export default function App() {
-  const { settings, updateSetting, circumference, gears, cadences } =
-    useGearCalculator();
+  const {
+    settings,
+    updateSetting,
+    circumference,
+    gears,
+    cadences,
+    cadenceOverflow,
+  } = useGearCalculator();
 
   return (
     <main className="calculator">
@@ -21,7 +27,9 @@ export default function App() {
         gears={gears}
         cadences={cadences}
         circumference={circumference}
-        unit={settings.unit}
+        cadenceFrom={settings.cadFrom}
+        cadenceTo={settings.cadTo}
+        cadenceOverflow={cadenceOverflow}
       />
     </main>
   );

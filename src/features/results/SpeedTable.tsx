@@ -1,18 +1,15 @@
-import { speedColor, speedKmh, toUnit, type GearPair, type Unit } from "../../gear";
+import { speedColor, speedKmh, type GearPair } from "../../gear";
 
 type Props = {
   gears: GearPair[];
   cadences: number[];
   circumference: number;
-  unit: Unit;
 };
 
-export function SpeedTable({ gears, cadences, circumference, unit }: Props) {
-  const unitLabel = unit === "kmh" ? "km/h" : "mph";
-
+export function SpeedTable({ gears, cadences, circumference }: Props) {
   return (
     <div className="table-scroll">
-      <table className="speed-table" aria-label={`Gear speeds in ${unitLabel}`}>
+      <table className="speed-table" aria-label="Gear speeds in km/h">
         <thead>
           <tr className="text-text-secondary">
             <th className="gear-column" scope="col">
@@ -33,10 +30,9 @@ export function SpeedTable({ gears, cadences, circumference, unit }: Props) {
               </th>
               {cadences.map((cadence) => {
                 const kmh = speedKmh(ring, cog, cadence, circumference);
-                const speed = toUnit(kmh, unit);
                 return (
-                  <td key={cadence} className={speedColor(speed)}>
-                    {speed.toFixed(1)}
+                  <td key={cadence} className={speedColor(kmh)}>
+                    {kmh.toFixed(1)}
                   </td>
                 );
               })}
